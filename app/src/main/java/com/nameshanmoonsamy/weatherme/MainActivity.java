@@ -13,7 +13,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "AccuWeatherURL";       //added this variable = added static on 22/08 @15:31pm
-    Fragment FiveDayWeather;
+    //Fragment FiveDayWeather;
     //Fragment tideFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,13 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,  "onCreate: " + accuWeatherURL);
 
 
-        FiveDayWeather = new FiveDayWeather();
+        //FiveDayWeather = new FiveDayWeather();  //changed for singleton
+        Fragment today = FiveDayWeather.getInstance();
         //tideFragment = new TideFragment();
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.weather_frame, FiveDayWeather);
+        transaction.replace(R.id.weather_frame, today);
         //transaction.replace(R.id.tide_weather_frame, tideFragment);
         transaction.commit();
     }

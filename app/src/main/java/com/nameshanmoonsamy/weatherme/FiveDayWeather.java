@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,20 +29,18 @@ public class FiveDayWeather extends Fragment {  //a fragment lives in an activit
     private TextView testTextView;
     ListView listView;
     CardView cardView;
-    static FiveDayWeather instance; //added on 22/08
+    static FiveDayWeather instance; //added on 22/08    --for singleton method
     String TAG = "url";             //added on 22/08
 
-    public FiveDayWeather() {
+    private FiveDayWeather() {  //made private for singleton - video L3B = change constructor in mainactivity for 5dayweather
         // Required empty public constructor
     }
     //added on 22/08
     public static FiveDayWeather getInstance() {
-        {
             if (instance == null) {
                 return new FiveDayWeather();
             }
             return instance;
-        }
     }
 
     @Nullable
@@ -53,9 +52,9 @@ public class FiveDayWeather extends Fragment {  //a fragment lives in an activit
         View view = inflater.inflate(R.layout.fragment_five_day_weather, container, false);
         //return view;
 
-        testTextView = view.findViewById(R.id.weather_text);
+        //testTextView = view.findViewById(R.id.weather_text);
         testTextView.setText("WEATHER");
-        listView = view.findViewById(R.id.weather_list);
+        //listView = view.findViewById(R.id.weather_list);
         cardView = view.findViewById(R.id.weather_cardview);
         //URL url = NetworkUtil.BuildURL();
         URL url = NetworkUtil.buildURL(); //call ur url here = still the same as the networkkutil class
@@ -64,7 +63,7 @@ public class FiveDayWeather extends Fragment {  //a fragment lives in an activit
         return view;
     }
 
-    class FetchWeatherData extends AsyncTask<URL,Void, String> {    //parameter = URL = uses our URL / VOID = if we want a progress update or we can put a progress bar / STRING = we know that we are getting string data back from our networkutil class
+    public class FetchWeatherData extends AsyncTask<URL,Void, String> {    //parameter = URL = uses our URL / VOID = if we want a progress update or we can put a progress bar / STRING = we know that we are getting string data back from our networkutil class
         //async class was depricated but it no longer is because its not showing any deprication if we use it in the IDE
         private String TAG ="weatherDATA";
         //make an arraylist
@@ -146,14 +145,14 @@ public class FiveDayWeather extends Fragment {  //a fragment lives in an activit
                         if (fiveDayList != null)
                         {
                             ForecastAdapter adapter = new ForecastAdapter(getContext(),fiveDayList);
-                            listView.setAdapter(adapter);
+                            listView.setAdapter((ListAdapter) adapter); //red lined adapter = so alt enter = added listAdapter
                         }
                         //added on 22/08
-                        JSONObject day = dailyWeather.getJSONObject("Day");
+                        /*JSONObject day = dailyWeather.getJSONObject("Day");
                         String iconValue = day.getString("IconPhrase");
                         forecastObject.setURL(iconValue);
                         Log.i(TAG, "iconValue" + iconValue);
-                        fiveDayList.add(forecastObject);
+                        fiveDayList.add(forecastObject);*/
                     }
                     Log.d(TAG, "consumedJSON: " + rootWeatherData); //added on 22/08
                     return fiveDayList;
