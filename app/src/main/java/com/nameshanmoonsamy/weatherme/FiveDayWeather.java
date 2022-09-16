@@ -52,8 +52,8 @@ public class FiveDayWeather extends Fragment {  //a fragment lives in an activit
         View view = inflater.inflate(R.layout.fragment_five_day_weather, container, false);
         //return view;
 
-        //testTextView = view.findViewById(R.id.weather_text);
-        testTextView.setText("WEATHER");
+//        testTextView = view.findViewById(R.id.weather_text);
+//        testTextView.setText("WEATHER");
         //listView = view.findViewById(R.id.weather_list);
         cardView = view.findViewById(R.id.weather_cardview);
         //URL url = NetworkUtil.BuildURL();
@@ -145,7 +145,7 @@ public class FiveDayWeather extends Fragment {  //a fragment lives in an activit
                         if (fiveDayList != null)
                         {
                             ForecastAdapter adapter = new ForecastAdapter(getContext(),fiveDayList);
-                            listView.setAdapter((ListAdapter) adapter); //red lined adapter = so alt enter = added listAdapter
+                            listView.setAdapter(adapter); //red lined adapter = so alt enter = added listAdapter = WRONG = added = extends ArrayAdapter<Forecast>
                         }
                         //added on 22/08
                         /*JSONObject day = dailyWeather.getJSONObject("Day");
